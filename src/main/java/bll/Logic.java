@@ -39,14 +39,29 @@ public class Logic {
         System.out.print("> ");
 
         String input1 = scanner.nextLine();
-        this.item = input1;
+        if (!input1.isBlank()) {
+            this.item = input1;
+        } else {
+            System.out.println("Your item cannot be empty!");
+            return;
+        }
 
         System.out.println("What was the price?");
         System.out.print("> ");
+        try {
+            double input2 = Double.parseDouble(scanner.nextLine());
+            if (input2 > -1) {
+                this.price = input2;
+            } else {
+                System.out.println("Price cannot be negative!");
+                return;
+            }
+        }
 
-        double input2 = Double.parseDouble(scanner.nextLine());
-        this.price = input2;
-
+        catch (NumberFormatException e){
+            System.out.println("Please enter a valid number!");
+            return;
+        }
         data.saveExpense(date, item, price);
     }
 }
